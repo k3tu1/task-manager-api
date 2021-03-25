@@ -26,7 +26,6 @@ router.post('/users/login', async (req, res) => {
         const token = await user.generateAuthToken()
         res.send({ user, token })
     } catch (e) {
-        console.log(e)
         res.status(400).send(e)
     }
 })
@@ -100,7 +99,7 @@ router.patch('/users/me', auth, async (req, res) => {
     const allowedUpdates = ['name', 'email', 'password', 'age']
     const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
     if (!isValidUpdate) {
-        res.status(400).send({ error: 'Invalide Update!' })
+        return res.status(400).send({ error: 'Invalide Update!' })
     }
     try {
         // const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
